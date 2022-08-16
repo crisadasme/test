@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+    league_db:
+        container_name: league_db
+        image: postgres:14
+        environment:
+            - POSTGRES_DB=postgres
+            - POSTGRES_PASSWORD=1234
+            - POSTGRES_USER=admin
+        volumes:
+            - ./pgdata:/var/lib/postgresql/data
+        ports:
+            - '5432:5432'
+        healthcheck:
+            test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "admin" ]
+            timeout: 60s
+            interval: 10s
+            retries: 10
+
+volumes:
+    pgdata:

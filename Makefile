@@ -14,12 +14,12 @@ build: install lint test
 all: install lint test release deploy 
 
 setup:  ## [setup] initialize virtualenv
-	virtualenv .venv
+	@python3 -m venv .venv
 	. .venv/bin/activate
 
 install:  ## [dependencies] install dependencies
-	@pip install --upgrade pip && \
-	pip install -r requirements.txt
+	@pip install --upgrade pip
+	@pip install -r requirements/dev.txt
 
 lint:  ## [linter] run flake8
 	@flake8 . --exclude .venv --count --select=E9,F63,F7,F82 --show-source --statistics
