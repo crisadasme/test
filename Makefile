@@ -7,6 +7,7 @@
 help:
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
+
 #----------------------
 # Continious Integration
 #----------------------
@@ -28,9 +29,15 @@ lint:  ## [linter] run flake8
 test: ## [tests] run unitest using pytest
 	@pytest tests
 
+format: ## [format]: run black and isort
+	@black src/ tests/
+	@isort src tests/
+
 release: ## [release] applies semantic-release
+	@semantic-release publish
+
 deploy: ## [deploy]: dockerize project
-	
+
 
 #----------------------
 # docker-compose
